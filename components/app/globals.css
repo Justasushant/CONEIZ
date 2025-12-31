@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #0a0f24;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* CardSwap CSS (kept in the components layer so Tailwind bg-* utilities win) */
+@layer components {
+  .card-swap-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translate(5%, 20%);
+    transform-origin: bottom right;
+    perspective: 900px;
+    overflow: visible;
+    z-index: 10;
+  }
+
+  .card-swap-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 12px;
+    transform-style: preserve-3d;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  @media (max-width: 768px) {
+    .card-swap-container {
+      transform: scale(0.75) translate(25%, 25%);
+      position: relative;
+      right: auto;
+      bottom: auto;
+      margin: 0 auto;
+    }
+  }
+}

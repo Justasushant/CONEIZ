@@ -2,12 +2,19 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Check, Info, X, DollarSign, Euro, Banknote, ChevronDown } from 'lucide-react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 
+type Currency = {
+  symbol: string;
+  code: string;
+  label: string;
+  name: string;
+};
+
 const CURRENCIES = [
-  { symbol: '$', label: 'USD', name: 'US Dollar' },
-  { symbol: '€', label: 'EUR', name: 'Euro' },
-  { symbol: '£', label: 'GBP', name: 'British Pound' },
-  { symbol: '₹', label: 'INR', name: 'Indian Rupee' },
-];
+  { symbol: '₹', code: 'INR', label: 'INR', name: 'Indian Rupee' },
+  { symbol: '$', code: 'USD', label: 'USD', name: 'US Dollar' },
+  { symbol: '€', code: 'EUR', label: 'EUR', name: 'Euro' },
+  { symbol: '£', code: 'GBP', label: 'GBP', name: 'British Pound' },
+] as const satisfies ReadonlyArray<Currency>;
 
 type Rates = Record<string, number>;
 
@@ -23,13 +30,13 @@ type PricingPack = {
   isActive: boolean;
 };
 
-const FX_CACHE_KEY = 'coneiz_fx_rates_v1';
+const FX_CACHE_KEY = 'coneiz_fx_rates_inr_v1';
 const FX_CACHE_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours
 
 const Products: React.FC = () => {
-  const [currency, setCurrency] = useState(CURRENCIES[0]);
+  const [currency, setCurrency] = useState<(typeof CURRENCIES)[number]>(CURRENCIES[0]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [rates, setRates] = useState<Rates>({ USD: 1 });
+  const [rates, setRates] = useState<Rates>({ INR: 1 });
   const closeTimerRef = useRef<number | null>(null);
   const [packs, setPacks] = useState<PricingPack[]>([]);
 
@@ -40,7 +47,7 @@ const Products: React.FC = () => {
         if (cached) {
           const parsed = JSON.parse(cached) as { ts: number; rates: Rates };
           if (parsed?.ts && parsed?.rates && Date.now() - parsed.ts < FX_CACHE_TTL_MS) {
-            setRates({ USD: 1, ...parsed.rates });
+            setRates({ INR: 1, ...parsed.rates });
             return;
           }
         }
@@ -49,11 +56,11 @@ const Products: React.FC = () => {
       }
 
       try {
-        const res = await fetch('https://api.frankfurter.app/latest?from=USD');
+        const res = await fetch('https://api.frankfurter.app/latest?from=INR');
         if (!res.ok) throw new Error('fx fetch failed');
         const data = (await res.json()) as { rates: Rates };
         if (!data?.rates) throw new Error('fx missing rates');
-        const nextRates: Rates = { USD: 1, ...data.rates };
+        const nextRates: Rates = { INR: 1, ...data.rates };
         setRates(nextRates);
         try {
           sessionStorage.setItem(FX_CACHE_KEY, JSON.stringify({ ts: Date.now(), rates: data.rates }));
@@ -61,7 +68,7 @@ const Products: React.FC = () => {
           // ignore
         }
       } catch {
-        // keep default USD-only if offline
+        // keep default INR-only if offline
         setRates((prev) => prev);
       }
     };
@@ -127,18 +134,18 @@ const Products: React.FC = () => {
     }, 250);
   };
 
-  const selectCurrency = (c: typeof CURRENCIES[0]) => {
+  const selectCurrency = (c: (typeof CURRENCIES)[number]) => {
     setCurrency(c);
     setIsMenuOpen(false);
   };
 
-  const formatPrice = (usd: number) => {
-    const rate = rates[currency.label] ?? 1;
-    const amount = usd * rate;
+  const formatPrice = (inr: number) => {
+    const rate = rates[currency.code] ?? 1;
+    const amount = inr * rate;
     try {
       return new Intl.NumberFormat(undefined, {
         style: 'currency',
-        currency: currency.label,
+        currency: currency.code,
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
       }).format(amount);
@@ -155,9 +162,12 @@ const Products: React.FC = () => {
   };
 
   const parseNumeric = (value: string) => {
-    const trimmed = (value ?? '').trim();
+    const trimmed = String(value ?? '').trim();
     if (!trimmed) return null;
-    const num = Number(trimmed);
+    // Support values like "10000", "10,000", "₹10,000", "INR 10000"
+    const normalized = trimmed.replace(/,/g, '').replace(/[^0-9.-]/g, '');
+    if (!normalized) return null;
+    const num = Number(normalized);
     return Number.isFinite(num) ? num : null;
   };
 
@@ -247,7 +257,16 @@ const Products: React.FC = () => {
                 )}
               </div>
               <p className={`text-sm pb-8 mb-8 border-b font-light ${recommended ? 'text-white/60 border-white/10' : 'text-brand-navy/60 border-gray-100'}`}>
-                {pack.priceUnit === 'one-time' ? 'One-time pricing for defined deliverables.' : 'Predictable billing designed to scale.'}
+                {pack.priceUnit === 'one-time' ? (
+                  <>
+                    One-time pricing for defined deliverables.
+                    <span className={`block mt-2 text-xs ${recommended ? 'text-white/50' : 'text-brand-navy/50'}`}>
+                      Note: The listed price is a base price and may increase depending on the type and scope of the website.
+                    </span>
+                  </>
+                ) : (
+                  'Predictable billing designed to scale.'
+                )}
               </p>
 
               <ul className="space-y-5 mb-12">

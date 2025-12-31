@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { User } from 'lucide-react';
 
 type AboutSectionFlags = {
   manifesto: boolean;
   origin: boolean;
   values: boolean;
-  team: boolean;
 };
 
 type OriginTimelineEntry = {
@@ -27,11 +25,6 @@ type AboutValue = {
   description: string;
 };
 
-type TeamMember = {
-  name: string;
-  role: string;
-};
-
 type AboutContent = {
   heading: string;
   description: string;
@@ -39,7 +32,6 @@ type AboutContent = {
   sections: AboutSectionFlags;
   origin: AboutOrigin;
   values: AboutValue[];
-  teamMembers: TeamMember[];
 };
 
 const DEFAULT_CONTENT: AboutContent = {
@@ -51,7 +43,6 @@ const DEFAULT_CONTENT: AboutContent = {
     manifesto: true,
     origin: true,
     values: true,
-    team: true,
   },
   origin: {
     year: '2025',
@@ -78,7 +69,6 @@ const DEFAULT_CONTENT: AboutContent = {
       description: "We don't chase trends. We build the infrastructure that allows trends to exist.",
     },
   ],
-  teamMembers: [],
 };
 
 const About: React.FC = () => {
@@ -101,7 +91,6 @@ const About: React.FC = () => {
               manifesto: Boolean(rawSections.manifesto ?? DEFAULT_CONTENT.sections.manifesto),
               origin: Boolean(rawSections.origin ?? DEFAULT_CONTENT.sections.origin),
               values: Boolean(rawSections.values ?? DEFAULT_CONTENT.sections.values),
-              team: Boolean(rawSections.team ?? DEFAULT_CONTENT.sections.team),
             };
 
             const rawOrigin = (data.origin ?? {}) as any;
@@ -122,14 +111,6 @@ const About: React.FC = () => {
               }))
               .filter((v: AboutValue) => v.title.length > 0 && v.description.length > 0);
 
-            const membersRaw = Array.isArray(data.teamMembers) ? data.teamMembers : [];
-            const teamMembers: TeamMember[] = membersRaw
-              .map((m: any) => ({
-                name: String(m?.name ?? '').trim(),
-                role: String(m?.role ?? '').trim(),
-              }))
-              .filter((m: TeamMember) => m.name.length > 0);
-
             setContent({
               heading: String(data.heading ?? DEFAULT_CONTENT.heading),
               description: String(data.description ?? DEFAULT_CONTENT.description),
@@ -142,7 +123,6 @@ const About: React.FC = () => {
                 timeline: timeline.length > 0 ? timeline : DEFAULT_CONTENT.origin.timeline,
               },
               values: values.length > 0 ? values : DEFAULT_CONTENT.values,
-              teamMembers,
             });
           },
           () => {
@@ -204,7 +184,7 @@ const About: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
              <div>
                <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-cyan mb-8">Our Origin</h2>
-               <div className="text-9xl font-display font-bold text-white/5 tracking-tighter leading-none -ml-2 mb-6">{content.origin.year}</div>
+               <div className="text-9xl font-display font-bold text-white tracking-tighter leading-none -ml-2 mb-6">{content.origin.year}</div>
                <p className="text-white/70 text-lg font-light leading-relaxed max-w-md">
                  {content.origin.description.split(content.origin.foundedDate).map((part, idx, arr) => (
                    <React.Fragment key={idx}>
@@ -249,48 +229,6 @@ const About: React.FC = () => {
                  ))}
              </div>
          </div>
-      </section>
-      )}
-
-      {/* Team - Coming Soon */}
-      {content.sections.team && (
-      <section className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-display font-medium text-brand-navy mb-4">The Architects</h2>
-            <p className="text-brand-navy/50 font-light uppercase tracking-widest text-xs">
-              {content.teamMembers.length > 0 ? 'Core Team' : 'Profiles Coming Soon'}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-            {content.teamMembers.length > 0
-              ? content.teamMembers.slice(0, 3).map((m, idx) => (
-                  <div key={`${m.name}-${idx}`} className="group">
-                    <div className="relative mb-6 w-full aspect-[3/4] overflow-hidden rounded-lg bg-brand-silver flex items-center justify-center">
-                      <User size={64} className="text-brand-navy/5" />
-                      <div className="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-brand-navy font-medium">{m.name}</div>
-                      <div className="text-brand-navy/50 text-sm font-light">{m.role}</div>
-                    </div>
-                  </div>
-                ))
-              : [1, 2, 3].map((i) => (
-                  <div key={i} className="group">
-                    <div className="relative mb-6 w-full aspect-[3/4] overflow-hidden rounded-lg bg-brand-silver flex items-center justify-center">
-                      <User size={64} className="text-brand-navy/5" />
-                      <div className="absolute inset-0 bg-brand-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                    <div className="text-center">
-                      <div className="h-6 w-32 bg-brand-silver mx-auto mb-2 rounded animate-pulse"></div>
-                      <div className="h-3 w-20 bg-brand-silver/50 mx-auto rounded animate-pulse"></div>
-                    </div>
-                  </div>
-                ))}
-          </div>
-        </div>
       </section>
       )}
     </div>

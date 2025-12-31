@@ -9,6 +9,7 @@ type RequestRow = {
   id: string;
   name: string;
   email: string;
+  phone: string;
   message: string;
   timestampText: string;
   status: RequestStatus;
@@ -50,6 +51,7 @@ export default function AdminRequestsPage() {
                 id: d.id,
                 name: String(data.name ?? ""),
                 email: String(data.email ?? ""),
+                phone: String(data.phone ?? ""),
                 message: String(data.message ?? ""),
                 timestampText: date ? date.toLocaleString() : "",
                 status,
@@ -120,6 +122,7 @@ export default function AdminRequestsPage() {
               <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Status</th>
               <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Name</th>
               <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Email</th>
+              <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Phone</th>
               <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Service</th>
               <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Price</th>
               <th className="py-4 px-4 text-xs font-bold uppercase tracking-widest text-brand-navy/60">Message</th>
@@ -130,13 +133,13 @@ export default function AdminRequestsPage() {
           <tbody className="text-sm text-brand-navy/80">
             {isLoading ? (
               <tr>
-                <td className="py-6 px-4" colSpan={8}>
+                <td className="py-6 px-4" colSpan={9}>
                   Loading…
                 </td>
               </tr>
             ) : visibleRows.length === 0 ? (
               <tr>
-                <td className="py-6 px-4" colSpan={8}>
+                <td className="py-6 px-4" colSpan={9}>
                   No requests.
                 </td>
               </tr>
@@ -161,6 +164,7 @@ export default function AdminRequestsPage() {
                     </td>
                     <td className="py-5 px-4 whitespace-nowrap">{row.name}</td>
                     <td className="py-5 px-4 whitespace-nowrap">{row.email}</td>
+                    <td className="py-5 px-4 whitespace-nowrap">{row.phone}</td>
                     <td className="py-5 px-4 whitespace-nowrap">{row.service ?? ""}</td>
                     <td className="py-5 px-4 whitespace-nowrap">{row.price ?? ""}</td>
                     <td className="py-5 px-4 min-w-[340px]">

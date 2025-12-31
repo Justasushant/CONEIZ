@@ -36,7 +36,6 @@ export default function AdminAboutPage() {
   const [showManifesto, setShowManifesto] = useState(true);
   const [showOrigin, setShowOrigin] = useState(true);
   const [showValues, setShowValues] = useState(true);
-  const [showTeam, setShowTeam] = useState(true);
 
   const [originYear, setOriginYear] = useState("");
   const [originFoundedDate, setOriginFoundedDate] = useState("");
@@ -49,8 +48,6 @@ export default function AdminAboutPage() {
   const [value2Desc, setValue2Desc] = useState("");
   const [value3Title, setValue3Title] = useState("");
   const [value3Desc, setValue3Desc] = useState("");
-
-  const [teamMembersText, setTeamMembersText] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -74,7 +71,6 @@ export default function AdminAboutPage() {
           setShowManifesto(Boolean(sections.manifesto ?? true));
           setShowOrigin(Boolean(sections.origin ?? true));
           setShowValues(Boolean(sections.values ?? true));
-          setShowTeam(Boolean(sections.team ?? true));
 
           const origin = (data.origin ?? {}) as any;
           setOriginYear(String(origin.year ?? ""));
@@ -104,18 +100,6 @@ export default function AdminAboutPage() {
           setValue3Title(String(v3.title ?? ""));
           setValue3Desc(String(v3.description ?? ""));
 
-          if (Array.isArray(data.teamMembers)) {
-            const lines = data.teamMembers
-              .map((m: any) => {
-                const name = String(m?.name ?? "").trim();
-                const role = String(m?.role ?? "").trim();
-                if (!name) return "";
-                return `${name} | ${role}`;
-              })
-              .filter(Boolean)
-              .join("\n");
-            setTeamMembersText(lines);
-          }
         }
       } catch {
         setError("Failed to load About content.");
@@ -149,12 +133,6 @@ export default function AdminAboutPage() {
           primary: idx === 0,
         }));
 
-      const teamPairs = parsePairs(teamMembersText);
-      const teamMembers = teamPairs.map((p) => ({
-        name: p.left,
-        role: p.right,
-      }));
-
       const values = [
         { title: value1Title.trim(), description: value1Desc.trim() },
         { title: value2Title.trim(), description: value2Desc.trim() },
@@ -171,7 +149,6 @@ export default function AdminAboutPage() {
             manifesto: showManifesto,
             origin: showOrigin,
             values: showValues,
-            team: showTeam,
           },
           origin: {
             year: originYear.trim(),
@@ -180,7 +157,6 @@ export default function AdminAboutPage() {
             timeline,
           },
           values,
-          teamMembers,
           updatedAt: serverTimestamp(),
           createdAt: serverTimestamp(),
         },
@@ -225,10 +201,6 @@ export default function AdminAboutPage() {
                   <label className="flex items-center justify-between gap-4">
                     <span className="text-brand-navy/60">Values</span>
                     <input type="checkbox" checked={showValues} onChange={(e) => setShowValues(e.target.checked)} />
-                  </label>
-                  <label className="flex items-center justify-between gap-4">
-                    <span className="text-brand-navy/60">Team</span>
-                    <input type="checkbox" checked={showTeam} onChange={(e) => setShowTeam(e.target.checked)} />
                   </label>
                 </div>
               </div>
@@ -325,19 +297,6 @@ export default function AdminAboutPage() {
                     <input value={value3Title} onChange={(e) => setValue3Title(e.target.value)} className="w-full bg-brand-silver/40 border-0 rounded-none px-4 py-3 text-sm text-brand-navy focus:outline-none" placeholder="Title" />
                     <textarea value={value3Desc} onChange={(e) => setValue3Desc(e.target.value)} rows={3} className="mt-2 w-full bg-brand-silver/40 border-0 rounded-none px-4 py-3 text-sm text-brand-navy focus:outline-none resize-none" placeholder="Description" />
                   </div>
-                </div>
-              </div>
-
-              <div>
-                <div className="text-xs font-bold uppercase tracking-[0.2em] text-brand-navy/50 mb-3">Profiles</div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-[0.2em] text-brand-navy/50 mb-2">Team Members (one per line: Name | Role)</label>
-                  <textarea
-                    value={teamMembersText}
-                    onChange={(e) => setTeamMembersText(e.target.value)}
-                    rows={6}
-                    className="w-full bg-brand-silver/40 border-0 rounded-none px-4 py-4 text-sm text-brand-navy focus:outline-none resize-none"
-                  />
                 </div>
               </div>
 

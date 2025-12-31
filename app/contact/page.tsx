@@ -15,12 +15,13 @@ export default function ContactPage() {
   const settings = useSiteSettings();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
 
   const canSubmit = useMemo(() => {
-    return name.trim().length > 0 && email.trim().length > 0 && message.trim().length > 0;
-  }, [name, email, message]);
+    return name.trim().length > 0 && email.trim().length > 0 && phone.trim().length > 0 && message.trim().length > 0;
+  }, [name, email, phone, message]);
 
   const makeSubmissionDocId = (rawName: string) => {
     const base = rawName
@@ -44,12 +45,14 @@ export default function ContactPage() {
       const { db } = await import("@/lib/firebase");
       const trimmedName = name.trim();
       const trimmedEmail = email.trim();
+      const trimmedPhone = phone.trim();
       const trimmedMessage = message.trim();
       const docId = makeSubmissionDocId(trimmedName);
 
       await setDoc(doc(db, "contact_submissions", docId), {
         name: trimmedName,
         email: trimmedEmail,
+        phone: trimmedPhone,
         message: trimmedMessage,
         status: "unread",
         timestamp: serverTimestamp(),
@@ -57,6 +60,7 @@ export default function ContactPage() {
 
       setName("");
       setEmail("");
+      setPhone("");
       setMessage("");
       setSubmitState({ status: "success" });
     } catch (err) {
@@ -148,6 +152,18 @@ export default function ContactPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   autoComplete="email"
+                  className="w-full bg-brand-silver/40 border-0 rounded-none px-4 py-4 text-sm text-brand-navy placeholder:text-brand-navy/30 focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-[0.2em] text-brand-navy/50 mb-2">Phone Number</label>
+                <input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="tel"
+                  autoComplete="tel"
                   className="w-full bg-brand-silver/40 border-0 rounded-none px-4 py-4 text-sm text-brand-navy placeholder:text-brand-navy/30 focus:outline-none"
                   required
                 />

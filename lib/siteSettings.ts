@@ -12,11 +12,13 @@ export type SiteSocialLinks = {
 
 export type SiteSettings = {
   contactEmail: string;
+  contactPhone: string;
   socials: SiteSocialLinks;
 };
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   contactEmail: "support@coneiz.com",
+  contactPhone: "+1 (555) 000-0000",
   socials: {
     instagram: "https://www.instagram.com/coneiz",
     twitter: "",
@@ -48,10 +50,12 @@ export function useSiteSettings() {
             const data = snap.data() as any;
 
             const contactEmail = String(data.contactEmail ?? DEFAULT_SITE_SETTINGS.contactEmail).trim();
+            const contactPhone = String(data.contactPhone ?? DEFAULT_SITE_SETTINGS.contactPhone).trim();
             const socialsRaw = (data.socials ?? {}) as any;
 
             setSettings({
               contactEmail: contactEmail || DEFAULT_SITE_SETTINGS.contactEmail,
+              contactPhone: contactPhone || DEFAULT_SITE_SETTINGS.contactPhone,
               socials: {
                 instagram: normalizeUrl(socialsRaw.instagram ?? DEFAULT_SITE_SETTINGS.socials.instagram),
                 twitter: normalizeUrl(socialsRaw.twitter ?? ""),

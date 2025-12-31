@@ -6,6 +6,7 @@ import { DEFAULT_SITE_SETTINGS } from "@/lib/siteSettings";
 
 type FormState = {
   contactEmail: string;
+  contactPhone: string;
   instagram: string;
   twitter: string;
   linkedin: string;
@@ -17,6 +18,7 @@ const DOC_ID = "main";
 export default function AdminSettingsPage() {
   const [form, setForm] = useState<FormState>({
     contactEmail: DEFAULT_SITE_SETTINGS.contactEmail,
+    contactPhone: DEFAULT_SITE_SETTINGS.contactPhone,
     instagram: DEFAULT_SITE_SETTINGS.socials.instagram ?? "",
     twitter: "",
     linkedin: "",
@@ -40,6 +42,7 @@ export default function AdminSettingsPage() {
           const socials = (data.socials ?? {}) as any;
           setForm({
             contactEmail: String(data.contactEmail ?? DEFAULT_SITE_SETTINGS.contactEmail),
+            contactPhone: String(data.contactPhone ?? DEFAULT_SITE_SETTINGS.contactPhone),
             instagram: String(socials.instagram ?? DEFAULT_SITE_SETTINGS.socials.instagram ?? ""),
             twitter: String(socials.twitter ?? ""),
             linkedin: String(socials.linkedin ?? ""),
@@ -57,8 +60,8 @@ export default function AdminSettingsPage() {
   }, []);
 
   const canSave = useMemo(() => {
-    return form.contactEmail.trim().length > 0;
-  }, [form.contactEmail]);
+    return form.contactEmail.trim().length > 0 && form.contactPhone.trim().length > 0;
+  }, [form.contactEmail, form.contactPhone]);
 
   const onChange = (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setSaved(false);
@@ -77,6 +80,7 @@ export default function AdminSettingsPage() {
         doc(db, "site_settings", DOC_ID),
         {
           contactEmail: form.contactEmail.trim(),
+          contactPhone: form.contactPhone.trim(),
           socials: {
             instagram: form.instagram.trim(),
             twitter: form.twitter.trim(),
@@ -119,6 +123,16 @@ export default function AdminSettingsPage() {
                   value={form.contactEmail}
                   onChange={onChange("contactEmail")}
                   type="email"
+                  className="w-full bg-brand-silver/40 border-0 rounded-none px-4 py-4 text-sm text-brand-navy placeholder:text-brand-navy/30 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-[0.2em] text-brand-navy/50 mb-2">Contact Phone</label>
+                <input
+                  value={form.contactPhone}
+                  onChange={onChange("contactPhone")}
+                  type="tel"
                   className="w-full bg-brand-silver/40 border-0 rounded-none px-4 py-4 text-sm text-brand-navy placeholder:text-brand-navy/30 focus:outline-none"
                 />
               </div>

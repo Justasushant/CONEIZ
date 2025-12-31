@@ -55,6 +55,10 @@
     "pages",
     "App.tsx",
     "index.tsx",
-    "vite.config.ts"
+    "vite.config.ts",
+    "components/vite.config.ts",
+    "components/**/vite.config.ts",
+    "components/App.tsx",
+    "components/index.tsx"
   ]
 }

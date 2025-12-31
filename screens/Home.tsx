@@ -203,6 +203,265 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Website Development Section */}
+      <section className="py-32 md:py-48 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-blue/20 to-transparent"></div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="mb-20">
+            <div className="inline-block mb-4 p-2 rounded-full bg-brand-silver">
+              <div className="w-2 h-2 bg-brand-cyan rounded-full"></div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-semibold text-brand-navy mb-6">
+              Full-Service Web Development
+            </h2>
+            <p className="text-lg md:text-xl text-brand-navy/60 max-w-3xl font-light leading-relaxed">
+              CONEIZ is a comprehensive web development team capable of building anything you envision. From scalable ecommerce platforms and high-converting landing pages to custom enterprise applications, we deliver excellence across the entire digital spectrum.
+            </p>
+          </div>
+
+          {/* Core Web Features */}
+          <div className="mb-20">
+            <h3 className="text-2xl font-semibold text-brand-navy mb-8">What We Build</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-blue">
+                  <Code size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Landing Pages</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  High-converting landing pages optimized for your campaigns. Fast-loading, mobile-responsive, and designed to maximize conversions.
+                </p>
+                <ul className="space-y-2 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3"></span>A/B Testing Ready</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3"></span>SEO Optimized</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3"></span>Conversion Focused</li>
+                </ul>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-cyan">
+                  <ShieldCheck size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Corporate Websites</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Professional brand presence with dynamic content management. Showcase your expertise and attract clients with a powerful website.
+                </p>
+                <ul className="space-y-2 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3"></span>CMS Integration</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3"></span>Team Pages</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3"></span>Blog Platform</li>
+                </ul>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-purple">
+                  <Cloud size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Web Applications</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Complex, scalable web applications with real-time functionality. From SaaS platforms to internal tools, we build it right.
+                </p>
+                <ul className="space-y-2 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3"></span>Real-Time Features</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3"></span>Database Design</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3"></span>API Development</li>
+                </ul>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-blue">
+                  <LayoutGrid size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Ecommerce Platforms</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Scalable ecommerce solutions from startup shops to enterprise marketplaces. Conversion-optimized and payment-ready.
+                </p>
+                <ul className="space-y-2 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3"></span>Payment Integration</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3"></span>Inventory Management</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3"></span>Order Fulfillment</li>
+                </ul>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-cyan">
+                  <Zap size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Mobile Apps</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Native and cross-platform mobile applications. React Native expertise for iOS and Android with native app performance.
+                </p>
+                <ul className="space-y-2 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3"></span>React Native</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3"></span>iOS & Android</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3"></span>Push Notifications</li>
+                </ul>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-purple">
+                  <Workflow size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Custom Solutions</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Bespoke digital solutions tailored to your unique business needs. We build exactly what you envision.
+                </p>
+                <ul className="space-y-2 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3"></span>Custom Architecture</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3"></span>Legacy Integration</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3"></span>Consulting</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Ecommerce Features */}
+          <div className="mb-16 pt-12 border-t border-brand-gray">
+            <h3 className="text-2xl font-semibold text-brand-navy mb-8">Our Technical Excellence</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-blue">
+                  <Code size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Modern Tech Stack</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Built with Next.js, TypeScript, React, and Node.js. We leverage the latest frameworks and technologies for optimal performance.
+                </p>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-cyan">
+                  <Zap size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Blazing Fast Performance</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Sub-100ms page loads with optimized images, lazy loading, and edge caching. Every millisecond counts.
+                </p>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-purple">
+                  <ShieldCheck size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Enterprise Security</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Security-first architecture with SSL/TLS encryption, CSRF protection, rate limiting, and OWASP compliance.
+                </p>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-blue">
+                  <LayoutGrid size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Responsive Design</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Pixel-perfect design across all devices. Mobile-first approach with full accessibility (WCAG) compliance.
+                </p>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-cyan">
+                  <Cloud size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Cloud Infrastructure</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Globally distributed servers with automatic scaling, failover protection, and 99.99% uptime guarantee.
+                </p>
+              </div>
+
+              <div className="bg-brand-silver/40 rounded-2xl p-10 hover:shadow-lg transition-shadow duration-300">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-6 text-brand-purple">
+                  <Workflow size={24} strokeWidth={1.5} />
+                </div>
+                <h3 className="text-xl font-semibold text-brand-navy mb-3">Content Management</h3>
+                <p className="text-brand-navy/60 font-light leading-relaxed mb-4">
+                  Firebase and Firestore integration for real-time updates, dynamic content, and admin dashboards without rebuilds.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-2xl p-8 border border-gray-100">
+                <h3 className="text-lg font-semibold text-brand-navy mb-4">Expertise Areas</h3>
+                <ul className="space-y-3 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3 flex-shrink-0"></span>Frontend Development</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3 flex-shrink-0"></span>Backend Architecture</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3 flex-shrink-0"></span>Database Design</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-blue rounded-full mr-3 flex-shrink-0"></span>API Development</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl p-8 border border-gray-100">
+                <h3 className="text-lg font-semibold text-brand-navy mb-4">Integration & Tools</h3>
+                <ul className="space-y-3 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3 flex-shrink-0"></span>Payment Gateways</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3 flex-shrink-0"></span>Third-Party APIs</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3 flex-shrink-0"></span>Email Services</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-cyan rounded-full mr-3 flex-shrink-0"></span>Analytics Platforms</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl p-8 border border-gray-100">
+                <h3 className="text-lg font-semibold text-brand-navy mb-4">Optimization & Support</h3>
+                <ul className="space-y-3 text-sm text-brand-navy/70">
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3 flex-shrink-0"></span>SEO Optimization</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3 flex-shrink-0"></span>Performance Tuning</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3 flex-shrink-0"></span>Ongoing Support</li>
+                  <li className="flex items-center"><span className="w-1.5 h-1.5 bg-brand-purple rounded-full mr-3 flex-shrink-0"></span>Maintenance Plans</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-12 border-t border-brand-gray">
+            <h3 className="text-2xl font-semibold text-brand-navy mb-6">Development Excellence</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-brand-navy/70">
+              <div className="flex gap-4">
+                <div className="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0 mt-1.5"></div>
+                <div>
+                  <p className="font-light leading-relaxed">
+                    <strong className="font-semibold text-brand-navy">SEO Optimized:</strong> Structured data, meta tags, and performance metrics ensure maximum discoverability.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-1.5 h-1.5 bg-brand-cyan rounded-full flex-shrink-0 mt-1.5"></div>
+                <div>
+                  <p className="font-light leading-relaxed">
+                    <strong className="font-semibold text-brand-navy">Analytics Integrated:</strong> Comprehensive tracking of user behavior and engagement metrics.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-1.5 h-1.5 bg-brand-purple rounded-full flex-shrink-0 mt-1.5"></div>
+                <div>
+                  <p className="font-light leading-relaxed">
+                    <strong className="font-semibold text-brand-navy">Continuous Deployment:</strong> Automated testing and deployment pipeline for zero-downtime updates.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-1.5 h-1.5 bg-brand-blue rounded-full flex-shrink-0 mt-1.5"></div>
+                <div>
+                  <p className="font-light leading-relaxed">
+                    <strong className="font-semibold text-brand-navy">Developer Experience:</strong> Clean code, comprehensive documentation, and maintainable architecture.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 flex justify-center">
+              <a 
+                href="#/contact"
+                className="inline-flex items-center justify-center px-10 py-4 text-base font-semibold rounded-md text-white bg-brand-navy hover:bg-brand-blue transition-all duration-300"
+              >
+                Get Started Today
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CardSwap Section */}
       <section className="py-20 md:py-40 bg-brand-black relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
